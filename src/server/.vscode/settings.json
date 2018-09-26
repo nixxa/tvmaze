@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/bin": true,
+        "**/logs": true,
+        "**/obj": true,
+        "**/tvmaze.db": true
+    }
+}

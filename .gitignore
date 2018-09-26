@@ -1,0 +1,9 @@
+# ignore obj & bin
+obj
+bin
+
+# ignore logs
+**/logs/*
+
+# ignore database
+**/tvmaze.db
