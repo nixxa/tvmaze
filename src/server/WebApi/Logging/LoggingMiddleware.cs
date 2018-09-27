@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Core.IO;
+using Kernel.IO;
 using Microsoft.AspNetCore.Http;
 
 namespace WebApi.Logging

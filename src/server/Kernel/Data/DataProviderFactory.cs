@@ -1,9 +1,9 @@
 using System;
-using Core.Interfaces;
+using Kernel.Interfaces;
 using LiteDB;
 using Microsoft.Extensions.Options;
 
-namespace Core.Data
+namespace Kernel.Data
 {
     public class DataProviderFactory : IDataProviderFactory
     {

@@ -1,4 +1,4 @@
-using Core.Interfaces;
+using Kernel.Interfaces;
 
 namespace WebModels
 {

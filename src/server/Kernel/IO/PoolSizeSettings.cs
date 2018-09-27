@@ -1,4 +1,4 @@
-namespace Core.IO
+namespace Kernel.IO
 {
     /// <summary>
     /// Contains settings for thread-pool

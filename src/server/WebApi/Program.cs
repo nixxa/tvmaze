@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Core;
+using Kernel;
+using Kernel.Actions;
+using Kernel.Data;
+using Kernel.Interfaces;
+using Kernel.Services;
+using MediatR;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using WebApi.Extensions;
 using WebApi.Logging;
 
 namespace WebApi
@@ -54,6 +61,17 @@ namespace WebApi
         {
             services.AddOptions();
             services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
+
+            services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
+            services.AddMediatR(typeof(GetAllShowsHandler));
+            services.AddAutoMapper();
+            services.AddScoped<SynchronizationService>();
+            services.AddSingleton<IHostedService>(p => {
+                using (var scope = p.CreateScope())
+                {
+                    return scope.ServiceProvider.GetService(typeof(SynchronizationService)) as IHostedService;
+                }
+            });
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

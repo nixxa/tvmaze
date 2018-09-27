@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebModels;
 using AutoMapper;
 using Models;
-using Core.Interfaces;
-using Core.Actions;
+using Kernel.Interfaces;
+using Kernel.Actions;
 
 namespace WebApi.Controllers
 {

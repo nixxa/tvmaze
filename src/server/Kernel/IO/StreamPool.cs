@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
 
-namespace Core.IO
+namespace Kernel.IO
 {
     public class StreamPool
     {

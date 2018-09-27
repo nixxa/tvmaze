@@ -5,14 +5,13 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Threading.Tasks;
-using Core;
-using Core.Actions;
-using Core.Data;
-using Core.Interfaces;
+using Kernel;
+using Kernel.Actions;
+using Kernel.Data;
+using Kernel.Interfaces;
 using JSNLog;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +22,8 @@ using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 using WebApi.Extensions;
 using WebApi.Logging;
+using Microsoft.Extensions.Hosting;
+using Kernel.Services;
 
 namespace WebApi
 {
@@ -49,9 +50,6 @@ namespace WebApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-            services.AddMediatR(typeof(GetAllShowsHandler));
-            services.AddSingleton(typeof(IDataProviderFactory), typeof(DataProviderFactory));
-            services.AddAutoMapper();
         }
 
         public void Configure(

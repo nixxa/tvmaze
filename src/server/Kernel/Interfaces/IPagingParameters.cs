@@ -1,4 +1,4 @@
-namespace Core.Interfaces
+namespace Kernel.Interfaces
 {
     public interface IPagingParameters
     {

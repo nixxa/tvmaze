@@ -17,7 +17,7 @@ namespace Tests
             var mapper = Substitute.For<IMapper>();
             var controller = new TvShowsController(mediator, mapper);
 
-            var result = await controller.Get();
+            var result = await controller.Get(new WebModels.PagingModel());
             Assert.NotNull(result);
         }
     }

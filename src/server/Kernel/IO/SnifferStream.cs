@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Core.IO
+namespace Kernel.IO
 {
     public class SnifferStream : Stream
     {

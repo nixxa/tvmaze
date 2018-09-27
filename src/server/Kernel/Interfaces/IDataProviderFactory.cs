@@ -1,6 +1,6 @@
 using LiteDB;
 
-namespace Core.Interfaces
+namespace Kernel.Interfaces
 {
     public interface IDataProviderFactory
     {
