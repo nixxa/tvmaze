@@ -11,6 +11,7 @@ namespace WebApi.Extensions
             Mapper.Initialize(cfg => 
             {
                 cfg.AddProfile(new TvShowMapperProfile());
+                cfg.AddProfile(new PersonMapperProfile());
             });
             services.AddSingleton(Mapper.Instance);
         }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Kernel.Dto;
 using Models;
 using WebModels;
 
@@ -8,6 +9,7 @@ namespace WebApi.MapperProfiles
     {
         public TvShowMapperProfile()
         {
+            CreateMap<Show, TvShow>();
             CreateMap<TvShow, TvShowModel>();
         }
     }

@@ -1,11 +1,11 @@
 using System;
 
-namespace Models
+namespace Kernel.Dto
 {
-    public class TvShow
+    public class Actor
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? Birthday { get; set; }
     }
 }

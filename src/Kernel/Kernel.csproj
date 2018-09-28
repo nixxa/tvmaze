@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="automapper" Version="7.0.1" />
     <PackageReference Include="flurl.http" Version="2.4.0" />
     <PackageReference Include="LiteDb" Version="4.1.4" />
     <PackageReference Include="mediatr" Version="5.1.0" />

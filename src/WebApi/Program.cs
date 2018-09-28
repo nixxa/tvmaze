@@ -61,16 +61,16 @@ namespace WebApi
         {
             services.AddOptions();
             services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
+            services.Configure<ExternalSourceOptions>(Configuration.GetSection("ExternalSource"));
 
             services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
             services.AddMediatR(typeof(GetAllShowsHandler));
             services.AddAutoMapper();
             services.AddScoped<SynchronizationService>();
+            services.AddSingleton<IServiceScope>(p => p.CreateScope());
             services.AddSingleton<IHostedService>(p => {
-                using (var scope = p.CreateScope())
-                {
-                    return scope.ServiceProvider.GetService(typeof(SynchronizationService)) as IHostedService;
-                }
+                IServiceScope singletonScope = p.GetService(typeof(IServiceScope)) as IServiceScope;
+                return singletonScope.ServiceProvider.GetService(typeof(SynchronizationService)) as IHostedService;
             });
         }
 

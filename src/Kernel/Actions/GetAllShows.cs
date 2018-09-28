@@ -21,8 +21,13 @@ namespace Kernel.Actions
         {
             using (var db = _factory.Create())
             {
-                var query = db.GetCollection<TvShow>();
-                return Task.FromResult(query.FindAll());
+                var collection = db.GetCollection<TvShow>();
+                var query = collection.FindAll();
+                if (request.Paging != null)
+                {
+                    query = query.Skip(request.Paging.Page * request.Paging.PageSize).Take(request.Paging.PageSize);
+                }
+                return Task.FromResult<IEnumerable<TvShow>>(query.ToList());
             }
         }
     }
