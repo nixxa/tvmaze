@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Kernel.Dto;
 using Kernel.Interfaces;
+using LiteDB;
 using MediatR;
 using Models;
 
@@ -25,8 +27,18 @@ namespace Kernel.Actions
         {
             using (var db = _factory.Create())
             {
-                var collection = db.GetCollection<TvShow>();
-                collection.InsertBulk(request.Shows);
+                var shows = db.GetCollection<TvShow>();
+                var persons = db.GetCollection<Person>();
+
+                var casts = request.Shows.SelectMany(item => item.Casts).Distinct();
+                foreach (var person in casts)
+                {
+                    persons.Upsert(person);
+                }
+                foreach (var item in request.Shows)
+                {
+                    shows.Upsert(item);
+                }
                 return Task.FromResult(request.Shows);
             }
         }

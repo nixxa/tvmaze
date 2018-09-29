@@ -21,11 +21,15 @@ namespace Kernel.Actions
         {
             using (var db = _factory.Create())
             {
-                var collection = db.GetCollection<TvShow>();
+                var collection = db.GetCollection<TvShow>().Include(x => x.Casts);
                 var query = collection.FindAll();
                 if (request.Paging != null)
                 {
-                    query = query.Skip(request.Paging.Page * request.Paging.PageSize).Take(request.Paging.PageSize);
+                    query = query.OrderBy(x => x.Id).Skip(request.Paging.Page * request.Paging.PageSize).Take(request.Paging.PageSize);
+                }
+                else
+                {
+                    query = query.OrderBy(x => x.Id);
                 }
                 return Task.FromResult<IEnumerable<TvShow>>(query.ToList());
             }

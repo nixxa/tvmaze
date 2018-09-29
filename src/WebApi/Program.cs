@@ -42,7 +42,7 @@ namespace WebApi
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             builder.AddEnvironmentVariables();
             return builder.Build();
@@ -59,19 +59,19 @@ namespace WebApi
 
         private static void Configure(IServiceCollection services)
         {
-            services.AddOptions();
-            services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
-            services.Configure<ExternalSourceOptions>(Configuration.GetSection("ExternalSource"));
+            // services.AddOptions();
+            // services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
+            // services.Configure<ExternalSourceOptions>(Configuration.GetSection("ExternalSource"));
 
-            services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
-            services.AddMediatR(typeof(GetAllShowsHandler));
-            services.AddAutoMapper();
-            services.AddScoped<SynchronizationService>();
-            services.AddSingleton<IServiceScope>(p => p.CreateScope());
-            services.AddSingleton<IHostedService>(p => {
-                IServiceScope singletonScope = p.GetService(typeof(IServiceScope)) as IServiceScope;
-                return singletonScope.ServiceProvider.GetService(typeof(SynchronizationService)) as IHostedService;
-            });
+            // services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
+            // services.AddMediatR(typeof(GetAllShowsHandler));
+            // services.AddAutoMapper();
+            // services.AddScoped<SynchronizationService>();
+            // services.AddSingleton<IServiceScope>(p => p.CreateScope());
+            // services.AddSingleton<IHostedService>(p => {
+            //     IServiceScope singletonScope = p.GetService(typeof(IServiceScope)) as IServiceScope;
+            //     return singletonScope.ServiceProvider.GetService(typeof(SynchronizationService)) as IHostedService;
+            // });
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

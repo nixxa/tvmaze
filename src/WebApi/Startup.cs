@@ -50,6 +50,21 @@ namespace WebApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddOptions();
+            services.Configure<LoggingOptions>(Configuration.GetSection("Logging"));
+            services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
+            services.Configure<ExternalSourceOptions>(Configuration.GetSection("ExternalSource"));
+
+            services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
+            services.AddMediatR(typeof(GetAllShowsHandler));
+            services.AddAutoMapper();
+            services.AddScoped<SynchronizationService>();
+            services.AddSingleton<IServiceScope>(p => p.CreateScope());
+            services.AddSingleton<IHostedService>(p => {
+                IServiceScope singletonScope = p.GetService(typeof(IServiceScope)) as IServiceScope;
+                return singletonScope.ServiceProvider.GetService(typeof(SynchronizationService)) as IHostedService;
+            });
         }
 
         public void Configure(

@@ -62,9 +62,9 @@ namespace Kernel.Actions
 
         private async Task SynchronizeCasts(TvShow show)
         {
-            var casts = await _mediator.Send(new GetShowCastsRequest(show.Id));
+            var casts = await _mediator.Send(new GetCastsRequest(show.Id));
             var persons = _mapper.Map<IEnumerable<Person>>(casts);
-            show.Casts = persons;
+            show.Casts = persons.ToList();
         }
     }
 

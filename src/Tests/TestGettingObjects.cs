@@ -25,7 +25,7 @@ namespace Tests
             _options = new ExternalSourceOptions
             {
                 GetShowsUri = "http://api.tvmaze.com/shows",
-                GetShowCastsUri = "http://api.tvmaze.com/shows",
+                GetCastsUri = "http://api.tvmaze.com/shows",
                 RateLimitPauseSeconds = 10
             };
         }
@@ -56,12 +56,15 @@ namespace Tests
         public async Task Should_get_casts_for_show_1()
         {
             var options = Options.Create(_options);
-            var logger = Substitute.For<ILogger<GetShowCastsHandler>>();
-            var handler = new GetShowCastsHandler(options, logger);
-            var response = await handler.Handle(new GetShowCastsRequest(1), CancellationToken.None);
+            var logger = Substitute.For<ILogger<GetCastsHandler>>();
+            var handler = new GetCastsHandler(options, logger);
+            var response = await handler.Handle(new GetCastsRequest(1), CancellationToken.None);
             Assert.NotNull(response);
             Assert.NotEmpty(response);
             Assert.NotNull(response.First().Person);
+            Assert.NotNull(response.First().Person.Name);
+            Assert.NotNull(response.First().Person.Birthday);
+            Assert.NotEqual(new DateTime(1900,1,1), response.First().Person.Birthday);
         }
 
         [Fact]
@@ -75,8 +78,8 @@ namespace Tests
             mediator.Send(Arg.Any<GetLastReceivedPageRequest>()).Returns(0);
             mediator.Send(Arg.Is<GetShowsRequest>(req => req.Page == 0)).Returns(new[] { new Show { Id = 1, Name = "first" }, new Show { Id = 2, Name = "Second" } });
             mediator.Send(Arg.Is<GetShowsRequest>(req => req.Page == 1)).Returns((IEnumerable<Show>)null);
-            mediator.Send(Arg.Is<GetShowCastsRequest>(req => req.ShowId == 1)).Returns(new[] { new Cast { Person = new Actor { Id = 1, Name = "Mike Vogel" } }});
-            mediator.Send(Arg.Is<GetShowCastsRequest>(req => req.ShowId == 2)).Returns(new[] { new Cast { Person = new Actor { Id = 2, Name = "Rachelle Lefevre" } }});
+            mediator.Send(Arg.Is<GetCastsRequest>(req => req.ShowId == 1)).Returns(new[] { new Cast { Person = new Actor { Id = 1, Name = "Mike Vogel" } }});
+            mediator.Send(Arg.Is<GetCastsRequest>(req => req.ShowId == 2)).Returns(new[] { new Cast { Person = new Actor { Id = 2, Name = "Rachelle Lefevre" } }});
             var handler = new SynchronizeShowsHandler(options, mediator, mapper, logger);
             var response = await handler.Handle(new SynchronizeShowsRequest(), CancellationToken.None);
             Assert.NotNull(response);

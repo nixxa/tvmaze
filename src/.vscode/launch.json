@@ -5,18 +5,18 @@
    "version": "0.2.0",
    "configurations": [
        {
-           "name": ".NET Core Launch (console)",
+           "name": ".NET Core Launch (webapi)",
            "type": "coreclr",
            "request": "launch",
            "preLaunchTask": "build",
            "program": "${workspaceFolder}/WebApi/bin/Debug/netcoreapp2.1/WebApi.dll",
            "args": [],
-           "cwd": "${workspaceFolder}/WebApi",
+           "cwd": "${workspaceFolder}/webapi",
            "stopAtEntry": false,
            "console": "internalConsole"
        },
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch (tests)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
