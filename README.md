@@ -11,7 +11,7 @@ dotnet build
 
 2. Running
 If you want to run the project without publishing it, do following actions:
-- First, edit `src/WebApi/appsettings.json` and set up paths in sections "Logging" and "Database" properly. Specified folders must exists on disk.
+- First, edit `src/WebApi/appsettings.json` and set up paths in sections "Logging" and "Database" properly. Specified folders must exist on disk.
 - Second, run following commands:
 ```
 cd src/
